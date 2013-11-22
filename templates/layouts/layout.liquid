@@ -1,0 +1,14 @@
+<!doctype html>
+<html class="no-js" lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Foundation 5</title>
+  		{{ "foundation.css" | asset_url | stylesheet_tag }}
+  		<script src="{{ "modernizr.js" | asset_url }}"></script>
+	</head>
+	<body>
+		{% block content %}{% endblock %}
+  		{% include "scripts" %}
+	</body>
+</html>
