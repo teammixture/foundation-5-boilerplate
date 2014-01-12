@@ -4,7 +4,7 @@
   Foundation.libs.interchange = {
     name : 'interchange',
 
-    version : '5.0.0',
+    version : '5.0.3',
 
     cache : {},
 
@@ -15,7 +15,7 @@
       load_attr : 'interchange',
 
       named_queries : {
-        'default' : Foundation.media_queries.small,
+        'default' : 'only screen',
         small : Foundation.media_queries.small,
         medium : Foundation.media_queries.medium,
         large : Foundation.media_queries.large,
@@ -71,6 +71,7 @@
       Foundation.inherit(this, 'throttle');
 
       this.data_attr = 'data-' + this.settings.load_attr;
+      $.extend(true, this.settings, method, options);
 
       this.bindings(method, options);
       this.load('images');
