@@ -18,6 +18,6 @@
   "type": "mixture",
   "useCompass": false,
   "sass": {
-    "useLibSass": true
+    "useLibSass": false
   }
 }
