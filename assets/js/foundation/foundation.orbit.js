@@ -81,7 +81,8 @@
         container.append(bullets_container);
         bullets_container.wrap('<div class="orbit-bullets-container"></div>');
         self.slides().each(function(idx, el) {
-          var bullet = $('<li>').attr('data-orbit-slide', idx);
+          var bullet = $('<li>').attr('data-orbit-slide', idx)
+            .on('click', self.link_bullet);
           bullets_container.append(bullet);
         });
       }
@@ -205,6 +206,7 @@
       }
     };
 
+    // Click handler for slides and bullets.
     self.link_bullet = function(e) {    
       var index = $(this).attr('data-orbit-slide');
       if ((typeof index === 'string') && (index = $.trim(index)) != "") {
@@ -212,19 +214,22 @@
         {
           var slide = container.find('[data-orbit-slide='+index+']');
           if (slide.index() != -1) {
+            index = slide.index() + 1;
+            self._prepare_direction(index);
             setTimeout(function(){
-              self._goto(slide.index() + 1);
+              self._goto(index);
             },100);
           }
         }
         else
         {
+          index = parseInt(index);
+          self._prepare_direction(index);
           setTimeout(function(){
-            self._goto(parseInt(index));
+            self._goto(index);
           },100);
         }
       }
-
     }
 
     self.timer_callback = function() {
@@ -270,7 +275,7 @@
       self.build_markup();
       if (settings.timer) {
         self.cache.timer = self.create_timer(); 
-        Foundation.utils.image_loaded(this.slides().children('img'), self.cache.timer.start);
+        Foundation.utils.image_loaded(this.slides().find('img'), self.cache.timer.start);
       }
       
       animate = new CSSAnimation(settings, slides_container);
@@ -279,8 +284,10 @@
         var $init_target = slides_container.find("." + settings.active_slide_class),
             animation_speed = settings.animation_speed;
         settings.animation_speed = 1;
-        $init_target.removeClass('active');
-        self._goto($init_target.index());
+        if (idx != $init_target.index()) {
+            $init_target.removeClass('active');
+            self._goto($init_target.index());
+        }
         settings.animation_speed = animation_speed;
       }
 
@@ -288,7 +295,7 @@
       container.on('click', '.'+settings.prev_class, self.prev);
 
       if (settings.next_on_click) {
-        container.on('click', '[data-orbit-slide]', self.link_bullet);
+        container.on('click', '.'+settings.slides_container_class+' [data-orbit-slide]', self.link_bullet);
       }
       
       container.on('click', self.toggle_timer);
@@ -533,7 +540,7 @@
   Foundation.libs.orbit = {
     name: 'orbit',
 
-    version: '5.2.2',
+    version: '5.2.3',
 
     settings: {
       animation: 'slide',
@@ -602,4 +609,4 @@
   };
 
     
-}(jQuery, this, this.document));
+}(jQuery, window, window.document));

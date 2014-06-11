@@ -19,3 +19,4 @@
 @import 'foundation/foundation.tab.js';
 @import 'foundation/foundation.tooltip.js';
 @import 'foundation/foundation.topbar.js';
+@import 'foundation/foundation.slider.js';
