@@ -16,7 +16,7 @@
   "projectName": "Foundation 5",
   "publishedId": null,
   "sass": {
-    "useLibSass": false
+    "useLibSass": true
   },
   "serverHostname": null,
   "serverPort": null,
